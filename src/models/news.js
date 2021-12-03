@@ -18,6 +18,13 @@ const newsSchema = new mongoose.Schema(
   }
 );
 
+newsSchema.methods.toJSON=function(){
+  const news=this
+  const newsObject=news.toObject()
+  delete newsObject.password
+  delete newsObject.tokens
+  return newsObject
+}
 
 
 

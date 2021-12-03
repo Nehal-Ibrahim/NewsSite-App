@@ -13,7 +13,7 @@ router.post('/reporters/register',async(req,res)=>{
     res.status(200).send({reporter,token})
     }
     catch(e){
-        res.status(400).send('error'+e)
+        res.status(400).send(e)
     }
 })
 
@@ -26,7 +26,7 @@ router.post('/reporters/login',async(req,res)=>{
         res.status(200).send({reporter,token})
     }
     catch(e){
-        res.status(400).send('error'+e)
+        res.status(400).send(e)
 
     }
 })
@@ -40,7 +40,7 @@ router.get('/reporters/getall',async(req,res)=>{
         res.status(200).send(reporter)
     }
     catch(e){
-        res.status(500).send('e'+e)
+        res.status(500).send(e)
     }
 })
 
@@ -89,6 +89,28 @@ router.patch('/reporters/edit/:id',async(req,res)=>{
 })
 
 
+router.patch('/profile',async(req,res)=>{
+    try{
+        const updates=Object.keys(req.body)
+        // const allowedUpdates=["name"]
+        // var isvalid=updates.every((update)=>allowedUpdates.includes(update))
+        // if(!isvalid){
+        //     throw new Error('cannot update')
+        // }
+      
+       updates.forEach((update)=>
+       req.reporter[update]=req.body[update])
+           await req.reporter.save()
+           res.status(200).send(req.reporter)
+       
+    }
+    catch(e){
+        res.status(400).send(e+'e')
+    }
+})
+
+
+
 
 
 
@@ -120,6 +142,9 @@ router.delete('/logoutall',auth,async(req,res)=>{
 })
 
 
+router.get("/profile", auth, async (req, res) => {
+    res.send(req.reporter)
+  })
 
 
 

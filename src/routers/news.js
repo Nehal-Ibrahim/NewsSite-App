@@ -28,7 +28,7 @@ router.get('/news/:id',auth,async(req,res)=>{
         res.status(200).send(news)
     }
     catch(e){
-        res.status(400).send('error'+e)
+        res.status(400).send(e)
     }
 })
 
@@ -100,12 +100,12 @@ router.post('/newsimages/:id',auth,uploads.single('avatar'),async(req,res)=>{
         newsid.avatar=req.file.buffer
         console.log(newsid.avatar)
         await newsid.save()
-        res.send('done')
+       res.send()
 
         console.log('done')
     }
     catch(e){
-        res.status(400).send('e'+e)
+        res.status(400).send(e)
     }
 
     
@@ -121,7 +121,7 @@ router.get('/news',auth,async(req,res)=>{
         res.status(200).send(req.reporter.news)
     }
     catch(e){
-        res.status(400).send('e'+e)
+        res.status(400).send(e)
     }
 })
 

@@ -87,11 +87,13 @@ reporterSchema.statics.findByCredentials = async (email, password) => {
 
 reporterSchema.methods.generateToken = async function () {
   const reporter = this;
-  const token = jwt.sign({ _id: reporter._id.toString() }, "nodejs");
+  const token = jwt.sign({ _id: reporter._id.toString() }, process.env.JWT_SECRET);
   reporter.tokens = reporter.tokens.concat({ token });
   await reporter.save();
   return token;
 };
+
+
 
 const Reporter = mongoose.model("Reporter", reporterSchema);
 

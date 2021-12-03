@@ -5,7 +5,7 @@ const Reporter=require('../models/reporter')
 const auth=async(req,res,next)=>{
     try{
         const token=req.header('Authorization').replace('Bearer ','')
-        const decode=jwt.verify(token,'nodejs')
+        const decode=jwt.verify(token,process.env.JWT_SECRET)
         const reporter=await Reporter.findOne({_id:decode._id , 'tokens.token':token})
 
 
