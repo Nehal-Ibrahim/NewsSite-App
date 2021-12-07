@@ -89,7 +89,7 @@ router.patch('/reporters/edit/:id',async(req,res)=>{
 })
 
 
-router.patch('/profile',async(req,res)=>{
+router.patch('/profile',auth,async(req,res)=>{
     try{
         const updates=Object.keys(req.body)
         // const allowedUpdates=["name"]
